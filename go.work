@@ -1,3 +1,11 @@
 go 1.21.2
 
 use ./2-variables
+
+use ./3-userInput
+
+use ./4-Conversions
+
+use ./5-Math
+
+use ./6-Time
