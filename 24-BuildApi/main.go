@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"math/rand"
 	"net/http"
 	"strconv"
@@ -33,7 +34,20 @@ func (c *Course) IsEmpty()bool  {
 }
 
 func main()  {
-	
+	router:= mux.NewRouter()
+
+	courses = append(courses, Course{CourseID: "2",CourseName: "ReactJs",CoursePrice: 299,Author: &Author{FullName: "Abhinai",Website: "abhinai.me"}})
+	courses = append(courses, Course{CourseID: "3",CourseName: "Node",CoursePrice: 299,Author: &Author{FullName: "Siva",Website: "knls.in"}})
+
+	router.HandleFunc("/",serveHome).Methods("GET")
+	router.HandleFunc("/courses",getAllCourses).Methods("GET")
+	router.HandleFunc("/course/{id}",getOneCourse).Methods("GET")
+	router.HandleFunc("/course",createOneCourse).Methods("POST")
+	router.HandleFunc("/course/{id}",updateOneCourse).Methods("PUT")
+	router.HandleFunc("/course/{id}",deleteOneCourse).Methods("DELETE")
+
+	fmt.Println("Server running on 4000")
+	log.Fatal(http.ListenAndServe(":4000",router))
 }
 
 // controllers - file
